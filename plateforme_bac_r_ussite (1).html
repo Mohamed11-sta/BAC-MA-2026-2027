@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bac Réussite - 2ème Bac Sciences Physiques</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb', // Blue 600
+                        secondary: '#0d9488', // Teal 600
+                        accent: '#f59e0b', // Amber 500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for a polished look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-graduation-cap text-primary text-3xl mr-2"></i>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Bac<span class="text-primary">Réussite</span><span class="text-xs text-slate-500 ml-1 block sm:inline">Sc. Physiques</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <button onclick="showTab('home')" class="nav-btn active px-3 py-2 rounded-md text-sm font-medium text-primary bg-blue-50" data-target="home">Accueil</button>
+                    <button onclick="showTab('maths')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-50 transition" data-target="maths">Maths</button>
+                    <button onclick="showTab('pc')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-50 transition" data-target="pc">Physique-Chimie</button>
+                    <button onclick="showTab('svt')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-50 transition" data-target="svt">SVT</button>
+                    <button onclick="showTab('english')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-50 transition" data-target="english">Anglais</button>
+                    <button onclick="showTab('philo')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-50 transition" data-target="philo">Philosophie</button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-slate-500 hover:text-slate-900 focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 pb-3 px-2 pt-2 shadow-inner">
+            <button onclick="showTab('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50 mb-1" data-target="home">Accueil</button>
+            <button onclick="showTab('maths'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 mb-1" data-target="maths">Maths</button>
+            <button onclick="showTab('pc'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 mb-1" data-target="pc">Physique-Chimie</button>
+            <button onclick="showTab('svt'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 mb-1" data-target="svt">SVT</button>
+            <button onclick="showTab('english'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 mb-1" data-target="english">Anglais</button>
+            <button onclick="showTab('philo'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" data-target="philo">Philosophie</button>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- ================= HOME TAB ================= -->
+        <div id="home" class="tab-content active">
+            <!-- Hero Section with Countdown -->
+            <div class="bg-gradient-to-r from-primary to-blue-800 rounded-2xl shadow-xl overflow-hidden mb-8 text-white relative">
+                <!-- Decorative background elements -->
+                <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-2xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-teal-400 opacity-20 blur-xl"></div>
+                
+                <div class="relative z-10 px-6 py-10 sm:px-12 sm:py-14 flex flex-col md:flex-row items-center justify-between">
+                    <div class="mb-8 md:mb-0 md:w-1/2">
+                        <span class="inline-block py-1 px-3 rounded-full bg-blue-900/50 text-blue-100 text-sm font-semibold mb-4 border border-blue-400/30 backdrop-blur-sm">
+                            <i class="fas fa-user-graduate mr-2 text-accent"></i>Espace de Mohamed Amine Derouich
+                        </span>
+                        <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">Objectif Examen National 2027</h1>
+                        <p class="text-blue-100 text-lg mb-6">Filière Sciences Physiques - BIOF. Ta plateforme de révision complète pour exceller au Bac.</p>
+                        <button onclick="showTab('pc')" class="bg-white text-primary font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-50 transition transform hover:-translate-y-1">
+                            Commencer à réviser <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Countdown Timer -->
+                    <div class="md:w-1/2 flex justify-center w-full">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30 text-center w-full max-w-md shadow-2xl">
+                            <h3 class="text-sm font-semibold uppercase tracking-wider mb-4 text-blue-100">Temps restant avant l'Examen</h3>
+                            <div class="flex justify-center gap-3 sm:gap-4">
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white text-primary text-2xl sm:text-3xl font-bold rounded-lg w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shadow-inner" id="cd-days">00</div>
+                                    <span class="text-xs mt-2 uppercase font-medium">Jours</span>
+                                </div>
+                                <div class="text-2xl font-bold mt-3 text-blue-200">:</div>
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white text-primary text-2xl sm:text-3xl font-bold rounded-lg w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shadow-inner" id="cd-hours">00</div>
+                                    <span class="text-xs mt-2 uppercase font-medium">Heures</span>
+                                </div>
+                                <div class="text-2xl font-bold mt-3 text-blue-200">:</div>
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white text-primary text-2xl sm:text-3xl font-bold rounded-lg w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shadow-inner" id="cd-minutes">00</div>
+                                    <span class="text-xs mt-2 uppercase font-medium">Min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-accent pl-3">Matières de l'Examen National</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- PC Card -->
+                    <div onclick="showTab('pc')" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition cursor-pointer group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition">
+                                <i class="fas fa-atom text-2xl"></i>
+                            </div>
+                            <span class="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-1 rounded-full">Coef: 7</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Physique-Chimie</h3>
+                        <p class="text-slate-500 text-sm mb-4">Matière principale. Mécanique, Électricité, Ondes, Suivi temporel, Nucléaire.</p>
+                        <div class="text-primary text-sm font-semibold flex items-center">Accéder au cours <i class="fas fa-chevron-right ml-1 text-xs"></i></div>
+                    </div>
+
+                    <!-- Math Card -->
+                    <div onclick="showTab('maths')" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-emerald-300 transition cursor-pointer group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-emerald-100 text-emerald-600 p-3 rounded-lg group-hover:bg-emerald-600 group-hover:text-white transition">
+                                <i class="fas fa-calculator text-2xl"></i>
+                            </div>
+                            <span class="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-1 rounded-full">Coef: 7</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Mathématiques</h3>
+                        <p class="text-slate-500 text-sm mb-4">Analyse, Algèbre, Géométrie dans l'espace, Probabilités, Nombres Complexes.</p>
+                        <div class="text-emerald-600 text-sm font-semibold flex items-center">Accéder au cours <i class="fas fa-chevron-right ml-1 text-xs"></i></div>
+                    </div>
+
+                    <!-- SVT Card -->
+                    <div onclick="showTab('svt')" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-green-300 transition cursor-pointer group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-green-100 text-green-600 p-3 rounded-lg group-hover:bg-green-600 group-hover:text-white transition">
+                                <i class="fas fa-leaf text-2xl"></i>
+                            </div>
+                            <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2.5 py-1 rounded-full">Coef: 5</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">S.V.T.</h3>
+                        <p class="text-slate-500 text-sm mb-4">Consommation de la matière, Information génétique, Pollution, Géologie.</p>
+                        <div class="text-green-600 text-sm font-semibold flex items-center">Accéder au cours <i class="fas fa-chevron-right ml-1 text-xs"></i></div>
+                    </div>
+
+                    <!-- English Card -->
+                    <div onclick="showTab('english')" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-purple-300 transition cursor-pointer group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-purple-100 text-purple-600 p-3 rounded-lg group-hover:bg-purple-600 group-hover:text-white transition">
+                                <i class="fas fa-language text-2xl"></i>
+                            </div>
+                            <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-full">Coef: 2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Anglais</h3>
+                        <p class="text-slate-500 text-sm mb-4">Compréhension, Grammaire, Vocabulaire thématique, Expression écrite (Writing).</p>
+                        <div class="text-purple-600 text-sm font-semibold flex items-center">Accéder au cours <i class="fas fa-chevron-right ml-1 text-xs"></i></div>
+                    </div>
+
+                    <!-- Philosophy Card -->
+                    <div onclick="showTab('philo')" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-amber-300 transition cursor-pointer group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-amber-100 text-amber-600 p-3 rounded-lg group-hover:bg-amber-600 group-hover:text-white transition">
+                                <i class="fas fa-book-open text-2xl"></i>
+                            </div>
+                            <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-full">Coef: 2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Philosophie</h3>
+                        <p class="text-slate-500 text-sm mb-4">La condition humaine, La connaissance, La politique, La morale, Méthodologie.</p>
+                        <div class="text-amber-600 text-sm font-semibold flex items-center">Accéder au cours <i class="fas fa-chevron-right ml-1 text-xs"></i></div>
+                    </div>
+
+                    <!-- Study Tips Card -->
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 shadow-sm border border-slate-700 text-white flex flex-col justify-center relative overflow-hidden">
+                        <i class="fas fa-lightbulb absolute -bottom-4 -right-4 text-7xl text-slate-700 opacity-50"></i>
+                        <h3 class="text-xl font-bold mb-2 relative z-10">Astuce Méthodologique</h3>
+                        <p class="text-slate-300 text-sm mb-4 relative z-10">Ne négligez pas les langues (Anglais, Philo) ! Leurs points peuvent faire la différence entre une mention Assez Bien et une mention Très Bien.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PHYSIQUE-CHIMIE TAB ================= -->
+        <div id="pc" class="tab-content">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-atom text-blue-600 mr-3"></i> Physique-Chimie
+                    </h2>
+                    <p class="text-slate-500 mt-1">Coefficient: 7 | Durée de l'examen: 3 heures</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Content Left Column -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Section Physique -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex justify-between items-center">
+                            <h3 class="font-bold text-lg text-slate-800">Partie Physique</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">60-65% de l'épreuve</span>
+                        </div>
+                        <div class="p-6">
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="bg-blue-50 text-primary p-2 rounded mr-3 mt-0.5"><i class="fas fa-wave-square"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800">1. Les Ondes</h4>
+                                        <p class="text-sm text-slate-600">Ondes mécaniques progressives, ondes périodiques, ondes lumineuses (diffraction, dispersion).</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-blue-50 text-primary p-2 rounded mr-3 mt-0.5"><i class="fas fa-radiation"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800">2. Transformations Nucléaires</h4>
+                                        <p class="text-sm text-slate-600">Décroissance radioactive, masse et énergie, lois de conservation.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-blue-50 text-primary p-2 rounded mr-3 mt-0.5"><i class="fas fa-bolt"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800">3. Électricité</h4>
+                                        <p class="text-sm text-slate-600">Dipôle RC, Dipôle RL, Oscillations libres dans le circuit RLC série.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-blue-50 text-primary p-2 rounded mr-3 mt-0.5"><i class="fas fa-car-crash"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800">4. Mécanique</h4>
+                                        <p class="text-sm text-slate-600">Lois de Newton, chute verticale, mouvement de projectiles, satellites et planètes, rotation d'un solide, systèmes oscillants.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section Chimie -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex justify-between items-center">
+                            <h3 class="font-bold text-lg text-slate-800">Partie Chimie</h3>
+                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">35-40% de l'épreuve</span>
+                        </div>
+                        <div class="p-6">
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="bg-green-50 text-green-600 p-2 rounded mr-3 mt-0.5"><i class="fas fa-flask"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800">1. Cinétique Chimique</h4>
+                                        <p class="text-sm text-slate-600">Suivi temporel d'une transformation, vitesse de réaction, temps de demi-réaction.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-green-50 text-green-600 p-2 rounded mr-3 mt-0.5"><i class="fas fa-balance-scale"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800">2. État d'équilibre d'un système</h4>
+                                        <p class="text-sm text-slate-600">Réactions acido-basiques, pH, constante d'acidité Ka, domaines de prédominance, titrage.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-green-50 text-green-600 p-2 rounded mr-3 mt-0.5"><i class="fas fa-battery-full"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800">3. Transformations forcées et Piles</h4>
+                                        <p class="text-sm text-slate-600">Fonctionnement des piles, électrolyse.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-green-50 text-green-600 p-2 rounded mr-3 mt-0.5"><i class="fas fa-vial"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800">4. Estérification et Hydrolyse</h4>
+                                        <p class="text-sm text-slate-600">Contrôle de l'évolution des systèmes chimiques.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Right Column -->
+                <div class="space-y-6">
+                    <div class="bg-blue-600 rounded-xl p-6 shadow-md text-white">
+                        <h3 class="font-bold text-lg mb-4 border-b border-blue-500 pb-2"><i class="fas fa-download mr-2"></i>Examens Nationaux</h3>
+                        <p class="text-sm text-blue-100 mb-4">Pratiquez avec les épreuves des années précédentes (Session Normale & Rattrapage).</p>
+                        <div class="space-y-2">
+                            <button class="w-full bg-white text-blue-600 font-semibold py-2 px-4 rounded shadow-sm hover:bg-slate-50 transition flex justify-between items-center">
+                                <span>National 2025</span> <i class="fas fa-file-pdf text-red-500"></i>
+                            </button>
+                            <button class="w-full bg-white text-blue-600 font-semibold py-2 px-4 rounded shadow-sm hover:bg-slate-50 transition flex justify-between items-center">
+                                <span>National 2024</span> <i class="fas fa-file-pdf text-red-500"></i>
+                            </button>
+                            <button class="w-full bg-white text-blue-600 font-semibold py-2 px-4 rounded shadow-sm hover:bg-slate-50 transition flex justify-between items-center">
+                                <span>National 2023</span> <i class="fas fa-file-pdf text-red-500"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <h3 class="font-bold text-lg text-slate-800 mb-4">Conseils pour l'examen</h3>
+                        <ul class="text-sm text-slate-600 space-y-3">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i> Respectez le nombre de chiffres significatifs.</li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i> N'oubliez pas les unités à la fin de chaque calcul.</li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i> Écrivez l'expression littérale avant l'application numérique.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MATHS TAB ================= -->
+        <div id="maths" class="tab-content">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-calculator text-emerald-600 mr-3"></i> Mathématiques
+                    </h2>
+                    <p class="text-slate-500 mt-1">Coefficient: 7 | Durée de l'examen: 3 heures</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Analyse -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h3 class="font-bold text-lg text-slate-800 mb-4 border-b pb-2">Analyse (≈ 11 points)</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-chart-line text-emerald-500 mr-3"></i> Étude des fonctions (Ln, Exp)</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-project-diagram text-emerald-500 mr-3"></i> Suites numériques</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-wave-square text-emerald-500 mr-3"></i> Dérivation et Intégration</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-infinity text-emerald-500 mr-3"></i> Calcul de limites, continuité</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t text-xs text-slate-500">
+                        *L'étude de fonction est le problème central de l'examen. Pratiquez massivement les dérivées, le tableau de variation et le traçage de la courbe.
+                    </div>
+                </div>
+
+                <!-- Algèbre & Géométrie -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h3 class="font-bold text-lg text-slate-800 mb-4 border-b pb-2">Algèbre & Géométrie (≈ 9 points)</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-square-root-alt text-emerald-500 mr-3"></i> Nombres complexes (Forme algébrique, trigo, expo)</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-cube text-emerald-500 mr-3"></i> Géométrie dans l'espace (Produit scalaire, vectoriel)</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-dice text-emerald-500 mr-3"></i> Calcul des probabilités</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t">
+                        <button class="w-full bg-emerald-50 text-emerald-700 font-semibold py-2 px-4 rounded border border-emerald-200 hover:bg-emerald-100 transition">
+                            <i class="fas fa-download mr-1"></i> Télécharger Résumé des Formules
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-emerald-600 rounded-xl p-6 text-white text-center">
+                 <h3 class="font-bold text-xl mb-2">Les Anciens Sujets de Bac - Votre meilleur allié</h3>
+                 <p class="mb-4">Les questions de mathématiques ont une structure récurrente au Maroc. Refaire les annales de 2015 à aujourd'hui garantit une excellente note.</p>
+                 <div class="flex flex-wrap justify-center gap-2">
+                     <span class="bg-white text-emerald-700 py-1 px-3 rounded-full text-sm font-bold cursor-pointer hover:shadow-md">Bac 2025</span>
+                     <span class="bg-white text-emerald-700 py-1 px-3 rounded-full text-sm font-bold cursor-pointer hover:shadow-md">Bac 2024</span>
+                     <span class="bg-white text-emerald-700 py-1 px-3 rounded-full text-sm font-bold cursor-pointer hover:shadow-md">Bac 2023</span>
+                     <span class="bg-white text-emerald-700 py-1 px-3 rounded-full text-sm font-bold cursor-pointer hover:shadow-md">Bac 2022</span>
+                 </div>
+            </div>
+        </div>
+
+        <!-- ================= SVT TAB ================= -->
+        <div id="svt" class="tab-content">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-leaf text-green-600 mr-3"></i> Sciences de la Vie et de la Terre
+                    </h2>
+                    <p class="text-slate-500 mt-1">Coefficient: 5 | Durée de l'examen: 3 heures</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-green-300 transition">
+                        <h4 class="font-bold text-lg text-green-700 mb-2">Unité 1: Consommation de la matière organique</h4>
+                        <p class="text-sm text-slate-600">Glycolyse, Cycle de Krebs, Chaîne respiratoire, Fermentation, Rôle du muscle strié squelettique dans la conversion de l'énergie (ATP).</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-green-300 transition">
+                        <h4 class="font-bold text-lg text-green-700 mb-2">Unité 2: L'information génétique</h4>
+                        <p class="text-sm text-slate-600">Nature et mécanisme de l'expression du matériel génétique, Mitose, Réplication de l'ADN, Transciption, Traduction, Génie génétique.</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-green-300 transition">
+                        <h4 class="font-bold text-lg text-green-700 mb-2">Unité 3: Transfert de l'information génétique</h4>
+                        <p class="text-sm text-slate-600">Méiose, Brassage chromosomique, Lois statistiques de la transmission des caractères héréditaires chez les diploïdes (Mendel).</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-green-300 transition">
+                        <h4 class="font-bold text-lg text-green-700 mb-2">Unité 4: Pollution et Environnement</h4>
+                        <p class="text-sm text-slate-600">Impact des déchets solides et liquides, Gaz à effet de serre, Eutrophisation, Préservation de l'environnement.</p>
+                    </div>
+                    
+                    <div class="bg-green-50 rounded-xl border border-green-200 p-6">
+                        <h3 class="font-bold text-lg text-slate-800 mb-3"><i class="fas fa-microscope text-green-600 mr-2"></i> Méthodologie SVT</h3>
+                        <p class="text-sm text-slate-700 mb-3">L'épreuve de SVT au Maroc (PC) se divise généralement en deux parties :</p>
+                        <ol class="list-decimal list-inside text-sm text-slate-600 space-y-2">
+                            <li><strong>Restitution des connaissances (5 pts) :</strong> QCM, définitions, vrai/faux.</li>
+                            <li><strong>Raisonnement scientifique (15 pts) :</strong> Analyse de graphes, exploitation de documents, déductions. "D'après le document... on déduit que..."</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ANGLAIS TAB ================= -->
+        <div id="english" class="tab-content">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-language text-purple-600 mr-3"></i> Anglais (English)
+                    </h2>
+                    <p class="text-slate-500 mt-1">Coefficient: 2 | Durée de l'examen: 2 heures</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-sm border-t-4 border-t-purple-400 border border-slate-200 p-5">
+                    <h3 class="font-bold text-lg text-slate-800 mb-3">I. Comprehension (15 points)</h3>
+                    <p class="text-sm text-slate-600 mb-3">Basé sur un texte. Types de questions :</p>
+                    <ul class="text-sm text-slate-700 space-y-1 list-disc list-inside">
+                        <li>True or False (avec justification obligatoire).</li>
+                        <li>Answer the questions.</li>
+                        <li>Complete the sentences.</li>
+                        <li>Find in the text words that mean almost the same as...</li>
+                        <li>What do the underlined words refer to?</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border-t-4 border-t-purple-500 border border-slate-200 p-5">
+                    <h3 class="font-bold text-lg text-slate-800 mb-3">II. Language (15 points)</h3>
+                    <ul class="text-sm text-slate-700 space-y-1 list-disc list-inside mb-4">
+                        <li><strong>Vocabulary:</strong> Phrasal verbs, collocations, suffixes/prefixes liés aux thèmes de l'année (Brain drain, Humor, Women, Youth...).</li>
+                        <li><strong>Grammar:</strong> Tenses, Passive voice, Reported speech, Relative clauses, Conditionals, Modals.</li>
+                        <li><strong>Functions:</strong> Apologizing, Complaining, Asking for advice, Expressing opinion.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border-t-4 border-t-purple-600 border border-slate-200 p-5">
+                    <h3 class="font-bold text-lg text-slate-800 mb-3">III. Writing (10 points)</h3>
+                    <p class="text-sm text-slate-600 mb-2">Production écrite. Vous aurez souvent le choix ou des tâches dirigées :</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded text-xs font-semibold">Email / Letter</span>
+                        <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded text-xs font-semibold">Article</span>
+                        <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded text-xs font-semibold">Paragraph</span>
+                        <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded text-xs font-semibold">Report</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4 italic">Astuce : Mémorisez les phrases de liaison (Furthermore, Moreover, On the other hand, To conclude).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PHILOSOPHIE TAB ================= -->
+        <div id="philo" class="tab-content">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-book-open text-amber-600 mr-3"></i> Philosophie
+                    </h2>
+                    <p class="text-slate-500 mt-1">Coefficient: 2 | Durée de l'examen: 2 heures</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Les Concepts au Programme (Majzo'at)</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-amber-50 rounded p-4 border border-amber-100">
+                            <h4 class="font-bold text-amber-800 mb-2 text-center">La Condition Humaine <br><span class="text-sm font-normal">(الوضع البشري)</span></h4>
+                            <ul class="text-sm text-amber-900 space-y-1 text-center">
+                                <li>La Personne (الشخص)</li>
+                                <li>Autrui (الغير)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 rounded p-4 border border-amber-100">
+                            <h4 class="font-bold text-amber-800 mb-2 text-center">La Connaissance <br><span class="text-sm font-normal">(المعرفة)</span></h4>
+                            <ul class="text-sm text-amber-900 space-y-1 text-center">
+                                <li>Théorie et Expérience (النظرية والتجربة)</li>
+                                <li>La Vérité (الحقيقة)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 rounded p-4 border border-amber-100">
+                            <h4 class="font-bold text-amber-800 mb-2 text-center">La Politique <br><span class="text-sm font-normal">(السياسة)</span></h4>
+                            <ul class="text-sm text-amber-900 space-y-1 text-center">
+                                <li>L'État (الدولة)</li>
+                                <li>Droit et Justice (الحق والعدالة)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 rounded p-4 border border-amber-100">
+                            <h4 class="font-bold text-amber-800 mb-2 text-center">La Morale <br><span class="text-sm font-normal">(الأخلاق)</span></h4>
+                            <ul class="text-sm text-amber-900 space-y-1 text-center">
+                                <li>Le Devoir (الواجب)</li>
+                                <li>La Liberté (الحرية)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-800 rounded-xl p-6 text-white shadow-lg">
+                <h3 class="font-bold text-xl mb-4 text-amber-400"><i class="fas fa-pencil-alt mr-2"></i> Méthodologie de Rédaction</h3>
+                <p class="text-slate-300 mb-4 text-sm">Le jour de l'examen, vous aurez le choix entre trois sujets : Un texte à analyser (نص), une question ouverte (سؤال), ou une citation (قولة).</p>
+                
+                <div class="space-y-3 text-sm">
+                    <div class="flex">
+                        <div class="w-24 font-bold text-amber-300">Introduction:</div>
+                        <div class="flex-1 text-slate-300">Cadrage général, cadrage spécifique (concept), problématisation (les questions).</div>
+                    </div>
+                    <div class="flex">
+                        <div class="w-24 font-bold text-amber-300">Analyse:</div>
+                        <div class="flex-1 text-slate-300">Explication de la thèse, concepts clés, argumentation du texte/de la citation.</div>
+                    </div>
+                    <div class="flex">
+                        <div class="w-24 font-bold text-amber-300">Discussion:</div>
+                        <div class="flex-1 text-slate-300">Valeur et limites de la thèse, invocation d'autres philosophes (positions soutenantes et opposantes).</div>
+                    </div>
+                    <div class="flex">
+                        <div class="w-24 font-bold text-amber-300">Conclusion:</div>
+                        <div class="flex-1 text-slate-300">Bilan de l'analyse/discussion, opinion personnelle justifiée, ouverture.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t-4 border-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-bold text-xl tracking-tight text-white">Bac<span class="text-primary">Réussite</span></span>
+                <p class="text-sm mt-1">Plateforme de révision - BIOF Maroc</p>
+                <p class="text-sm mt-2 font-medium text-white">Créée et développée par <span class="text-primary">Mohamed Amine Derouich</span></p>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="text-slate-400 hover:text-blue-500 transition"><i class="fab fa-facebook text-xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-red-500 transition"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-pink-500 transition" title="Instagram de Mohamed Amine Derouich"><i class="fab fa-instagram text-xl"></i></a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 pt-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <span>&copy; 2026 Créée par <strong>Mohamed Amine Derouich</strong>. Tous droits réservés.</span>
+            <span>Vers la réussite au Baccalauréat !</span>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Navigation Logic
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+
+            // Update nav buttons styling (Desktop)
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if(btn.dataset.target === tabId) {
+                    btn.classList.add('bg-blue-50', 'text-primary');
+                    btn.classList.remove('text-slate-600', 'hover:bg-slate-50');
+                } else {
+                    btn.classList.remove('bg-blue-50', 'text-primary');
+                    btn.classList.add('text-slate-600', 'hover:bg-slate-50');
+                }
+            });
+
+            // Update mobile menu styling
+            document.querySelectorAll('#mobile-menu button').forEach(btn => {
+                if(btn.dataset.target === tabId) {
+                    btn.classList.add('bg-blue-50', 'text-primary');
+                    btn.classList.remove('text-slate-700', 'hover:bg-slate-50');
+                } else {
+                    btn.classList.remove('bg-blue-50', 'text-primary');
+                    btn.classList.add('text-slate-700', 'hover:bg-slate-50');
+                }
+            });
+
+            // Scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Countdown Timer Logic
+        // Set target date for National Exam (Approximate: June 8, 2027)
+        const targetDate = new Date('June 8, 2027 08:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById('cd-days').innerText = "00";
+                document.getElementById('cd-hours').innerText = "00";
+                document.getElementById('cd-minutes').innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            // Formatting to always show 2 digits
+            document.getElementById('cd-days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('cd-hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('cd-minutes').innerText = minutes.toString().padStart(2, '0');
+        }
+
+        // Update timer every minute
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+    </script>
+</body>
+</html>
